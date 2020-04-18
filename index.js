@@ -5,6 +5,7 @@ const http = require("http");
 const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
+const helmet = require("helmet");
 
 /**
  * server configuration
@@ -25,6 +26,15 @@ const db = dbService({ drop: false });
 
 // allow cross origin request
 app.use(cors());
+
+// secure express app
+app.use(
+  helmet({
+    dnsPrefetchControl: false,
+    frameguard: false,
+    ieNoOpen: false,
+  })
+);
 
 // parsing the request bodys
 app.use(bodyParser.urlencoded({ extended: false }));

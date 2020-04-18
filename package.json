@@ -1,0 +1,33 @@
+{
+  "name": "express-boilerplate",
+  "version": "1.0.0",
+  "description": "Boilerplate express js by nafanesia",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npm run nodemon",
+    "nodemon": "nodemon --exec npm run dev",
+    "dev": "cross-env NODE_ENV=development node index.js",
+    "stag": "cross-env NODE_ENV=stagging node index.js",
+    "prod": "cross-env NODE_ENV=production node index.js",
+    "lint": "eslint ./config/."
+  },
+  "keywords": [
+    "express"
+  ],
+  "author": "Nafanesia",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "mysql2": "^2.1.0",
+    "sequelize": "^5.21.6",
+    "validator": "^13.0.0"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.2",
+    "eslint": "^6.8.0"
+  }
+}

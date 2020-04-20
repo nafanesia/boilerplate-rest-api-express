@@ -1,11 +1,11 @@
-const database = require("../utils/database");
+import database from '../config/database';
 
 const logSuccess = () => {
-  console.info("Connection has been established successfully.");
+  console.info('Connection has been established successfully.');
 };
 
 const logFailure = (err) => {
-  console.error("Unable to connect to the database:", err);
+  console.error('Unable to connect to the database:', err);
 };
 
 const dbService = async ({ drop }) => {
@@ -21,4 +21,4 @@ const dbService = async ({ drop }) => {
   }
 };
 
-module.exports = dbService;
+export default dbService;

@@ -1,10 +1,8 @@
-const _response = ({ success = false, message, data = {} }) => {
-  return {
-    success: success,
-    message: message,
-    data: data,
-  };
-};
+const response = ({ success = false, message, data = {} }) => ({
+  success,
+  message,
+  data,
+});
 
 /**
  * The request was successfully completed.
@@ -12,7 +10,7 @@ const _response = ({ success = false, message, data = {} }) => {
  * @param {*} {message, data}
  */
 const ok = (res, { message, data }) => {
-  res.status(200).send(_response({ success: true, message, data }));
+  res.status(200).send(response({ success: true, message, data }));
 };
 
 /**
@@ -21,7 +19,7 @@ const ok = (res, { message, data }) => {
  * @param {*} {message, data}
  */
 const created = (res, { message, data }) => {
-  res.status(201).send(_response({ success: true, message, data }));
+  res.status(201).send(response({ success: true, message, data }));
 };
 
 /**
@@ -30,7 +28,7 @@ const created = (res, { message, data }) => {
  * @param {*} {message, data}
  */
 const badRequest = (res, { message, data }) => {
-  res.status(400).send(_response({ message, data }));
+  res.status(400).send(response({ message, data }));
 };
 
 /**
@@ -39,7 +37,7 @@ const badRequest = (res, { message, data }) => {
  * @param {*} {message, data}
  */
 const unauthorized = (res, { message, data }) => {
-  res.status(401).send(_response({ message, data }));
+  res.status(401).send(response({ message, data }));
 };
 
 /**
@@ -48,7 +46,7 @@ const unauthorized = (res, { message, data }) => {
  * @param {*} {message, data}
  */
 const forbidden = (res, { message, data }) => {
-  res.status(403).send(_response({ message, data }));
+  res.status(403).send(response({ message, data }));
 };
 
 /**
@@ -57,7 +55,7 @@ const forbidden = (res, { message, data }) => {
  * @param {*} {message, data}
  */
 const notFound = (res, { message, data }) => {
-  res.status(404).send(_response({ message, data }));
+  res.status(404).send(response({ message, data }));
 };
 
 /**
@@ -67,7 +65,7 @@ const notFound = (res, { message, data }) => {
  * @param {*} {message, data}
  */
 const methodNotAllowed = (res, { message, data }) => {
-  res.status(405).send(_response({ message, data }));
+  res.status(405).send(response({ message, data }));
 };
 
 /**
@@ -78,7 +76,7 @@ const methodNotAllowed = (res, { message, data }) => {
  * @param {*} {message, data}
  */
 const conflict = (res, { message, data }) => {
-  res.status(409).send(_response({ message, data }));
+  res.status(409).send(response({ message, data }));
 };
 
 /**
@@ -87,7 +85,7 @@ const conflict = (res, { message, data }) => {
  * @param {*} {message, data}
  */
 const internalServerError = (res, { message, data }) => {
-  res.status(500).send(_response({ message, data }));
+  res.status(500).send(response({ message, data }));
 };
 
 /**
@@ -96,10 +94,10 @@ const internalServerError = (res, { message, data }) => {
  * @param {*} {message, data}
  */
 const serviceUnavailable = (res, { message, data }) => {
-  res.status(503).send(_response({ message, data }));
+  res.status(503).send(response({ message, data }));
 };
 
-module.exports = {
+export default {
   ok,
   created,
   badRequest,

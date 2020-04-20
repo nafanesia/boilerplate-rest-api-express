@@ -1,8 +1,8 @@
-const Sequelize = require("sequelize");
-const database = require("../utils/database");
+import Sequelize from 'sequelize';
+import database from '../config/database';
 
 const User = database.define(
-  "user",
+  'user',
   {
     email: {
       type: Sequelize.STRING,
@@ -15,7 +15,7 @@ const User = database.define(
   },
   {
     // options
-  }
+  },
 );
 
-module.exports = User;
+export default User;

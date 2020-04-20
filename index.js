@@ -1,27 +1,24 @@
 /**
  * Third party libraries
  */
-const http = require("http");
-const express = require("express");
-const cors = require("cors");
-const bodyParser = require("body-parser");
-const helmet = require("helmet");
+import { Server } from 'http';
+import express from 'express';
+import cors from 'cors';
+import { urlencoded, json } from 'body-parser';
+import helmet from 'helmet';
 
 /**
- * server configuration
+ * Server configuration
  */
-const config = require("./src/config");
-const routes = require("./src/routes");
-const dbService = require("./src/services/database.service");
-
-// environment
-const environment = config.environment;
+import config from './src/config';
+import routes from './src/routes';
+import dbService from './src/services/database.service';
 
 /**
  * express application
  */
 const app = express();
-const server = http.Server(app);
+const server = Server(app);
 const db = dbService({ drop: false });
 
 // allow cross origin request
@@ -33,26 +30,16 @@ app.use(
     dnsPrefetchControl: false,
     frameguard: false,
     ieNoOpen: false,
-  })
+  }),
 );
 
 // parsing the request bodys
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+app.use(urlencoded({ extended: false }));
+app.use(json());
 
 routes(app);
 
 server.listen(config.port, () => {
-  if (
-    environment !== "development" &&
-    environment !== "stagging" &&
-    environment !== "production"
-  ) {
-    console.error(
-      `NODE_ENV is set to ${environment}, but only development, stagging and production are valid.`
-    );
-    process.exit(1);
-  }
-  console.log(`Server running in environment ${environment}!`);
+  console.log(`Server running in PORT ${config.port}!`);
   return db;
 });

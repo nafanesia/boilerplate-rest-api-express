@@ -1,6 +1,8 @@
-const authController = require("../controllers/auth_controller");
+import authController from '../controllers/auth_controller';
 
-module.exports = (app) => {
-  app.route("/login").post(authController.login);
-  app.route("/register").post(authController.register);
+const authRoute = (app) => {
+  app.route('/login').post(authController.login);
+  app.route('/register').post(authController.register);
 };
+
+export default authRoute;

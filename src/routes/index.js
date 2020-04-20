@@ -1,7 +1,9 @@
-const authRoute = require("./auth_route");
-const exampleRoute = require("./example_route");
+import authRoute from './auth_route';
+import exampleRoute from './example_route';
 
-module.exports = (app) => {
+const routes = (app) => {
   authRoute(app);
   exampleRoute(app);
 };
+
+export default routes;

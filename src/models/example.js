@@ -1,8 +1,8 @@
-const Sequelize = require("sequelize");
-const database = require("../utils/database");
+import Sequelize from 'sequelize';
+import database from '../config/database';
 
 const Example = database.define(
-  "example",
+  'example',
   {
     firstName: {
       type: Sequelize.STRING,
@@ -16,7 +16,7 @@ const Example = database.define(
   },
   {
     // options
-  }
+  },
 );
 
-module.exports = Example;
+export default Example;

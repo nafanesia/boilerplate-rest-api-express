@@ -1,7 +1,7 @@
-const validator = require("validator");
-const response = require("../utils/response");
-const User = require("../models/user");
-const bcryptService = require("../services/bcrypt.service");
+import validator from 'validator';
+import response from '../utils/response';
+import User from '../models/user';
+import bcryptService from '../utils/bcrypt';
 
 const login = (req, res, next) => {
   const { email, password } = req.body;
@@ -13,30 +13,29 @@ const login = (req, res, next) => {
         },
       }).then((user) => {
         if (!user) {
-          return response.badRequest(res, {
+          response.badRequest(res, {
             message: `${email} not found!`,
           });
         }
         bcryptService.decrypt(password, user.password).then((success) => {
           if (success) {
-            return response.ok(res, {
-              message: "Login successfull",
-              data: { token: "t0k3n" },
+            response.ok(res, {
+              message: 'Login successfull',
+              data: { token: 't0k3n' },
             });
-          } else {
-            return response.notFound(res, { message: "Invalid password" });
           }
+          response.notFound(res, { message: 'Invalid password' });
         });
       });
     } catch (err) {
-      return response.internalServerError(res, {
+      response.internalServerError(res, {
         message: err.message,
         data: err,
       });
     }
   } else {
-    return response.badRequest(res, {
-      message: "Invalid email address format",
+    response.badRequest(res, {
+      message: 'Invalid email address format',
     });
   }
 };
@@ -47,31 +46,27 @@ const register = (req, res, next) => {
     try {
       bcryptService.encrypt(password).then((hash) => {
         User.create({
-          email: email,
+          email,
           password: hash,
         })
-          .then((user) => {
-            return response.created(res, {
-              message: "Register successfull",
-              data: { user },
-            });
-          })
-          .catch((err) => {
-            return response.conflict(res, {
-              message: `${email} has registered!`,
-              data: err,
-            });
-          });
+          .then((user) => response.created(res, {
+            message: 'Register successfull',
+            data: { user },
+          }))
+          .catch((err) => response.conflict(res, {
+            message: `${email} has registered!`,
+            data: err,
+          }));
       });
     } catch (err) {
-      return response.internalServerError(res, {
+      response.internalServerError(res, {
         message: err.message,
         data: err,
       });
     }
   } else {
-    return response.badRequest(res, {
-      message: "Invalid email address format",
+    response.badRequest(res, {
+      message: 'Invalid email address format',
     });
   }
 };

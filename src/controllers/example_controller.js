@@ -1,5 +1,5 @@
-const response = require("../utils/response");
-const Example = require("../models/example");
+import response from '../utils/response';
+import Example from '../models/example';
 
 // Find all example
 const get = (req, res, next) => {
@@ -12,19 +12,19 @@ const get = (req, res, next) => {
         },
       }).then((name) => {
         if (!name) {
-          return response.badRequest(res, {
+          response.badRequest(res, {
             message: `Name with firstname ${firstName} not found!`,
           });
         }
-        return response.ok(res, { message: "Name found", data: name });
+        response.ok(res, { message: 'Name found', data: name });
       });
     }
 
     Example.findAll().then((list) => {
-      return response.ok(res, { message: "All list example", data: list });
+      response.ok(res, { message: 'All list example', data: list });
     });
   } catch (err) {
-    return response.internalServerError(res, {
+    response.internalServerError(res, {
       message: err.message,
       data: err,
     });
@@ -37,13 +37,13 @@ const insert = (req, res, next) => {
   try {
     // Create a new user
     Example.create({ firstName, lastName }).then((name) => {
-      return response.created(res, {
-        message: "Name inserted!",
+      response.created(res, {
+        message: 'Name inserted!',
         data: { firstName: name.firstName, lastName: name.lastName },
       });
     });
-  } catch {
-    return response.internalServerError(res, {
+  } catch (err) {
+    response.internalServerError(res, {
       message: err.message,
       data: err,
     });
@@ -56,21 +56,21 @@ const update = (req, res, next) => {
   try {
     Example.update(
       { firstName: updateName.firstName, lastName: updateName.lastName },
-      { where: { firstName }, limit: 1 }
+      { where: { firstName }, limit: 1 },
     ).then((listSuccess) => {
-      if (listSuccess[0] == 0) {
-        return response.badRequest(res, {
+      if (listSuccess[0] === 0) {
+        response.badRequest(res, {
           message: `Name with firstName ${firstName} not found!`,
           data: { listSuccess },
         });
       }
-      return response.ok(res, {
+      response.ok(res, {
         message: `Name with firstName ${firstName} was updated`,
-        data: { array },
+        data: { listSuccess },
       });
     });
   } catch (err) {
-    return response.internalServerError(res, {
+    response.internalServerError(res, {
       message: err.message,
       data: err,
     });
@@ -86,23 +86,25 @@ const destroy = (req, res, next) => {
         firstName,
       },
     }).then((countDestroy) => {
-      if (countDestroy == 0) {
-        return response.badRequest(res, {
+      if (countDestroy === 0) {
+        response.badRequest(res, {
           message: `Name with ${firstName} not found!`,
           data: { countDestroy },
         });
       }
-      return response.ok(res, {
+      response.ok(res, {
         message: `Name with ${firstName} was deleted`,
         data: { countDestroy },
       });
     });
   } catch (err) {
-    return response.internalServerError(res, {
+    response.internalServerError(res, {
       message: err.message,
       data: err,
     });
   }
 };
 
-module.exports = { get, insert, update, destroy };
+export default {
+  get, insert, update, destroy,
+};

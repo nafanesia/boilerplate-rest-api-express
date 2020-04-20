@@ -6,7 +6,7 @@ const con = connection_database();
 const database = new Sequelize(con.database, con.username, con.password, {
   host: con.host,
   dialect: con.dialect,
-  port: 3306,
+  port: con.port,
   pool: {
     max: 5,
     min: 0,

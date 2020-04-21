@@ -1,8 +1,33 @@
+const statusCode = {
+  OK: 200,
+  CREATED: 201,
+  BAD_REQUEST: 400,
+  UNAUTHORIZED: 401,
+  FORBIDDEN: 403,
+  NOT_FOUND: 404,
+  METHOD_NOT_ALLOWED: 405,
+  CONFLICT: 409,
+  INTERNAL_SERVER_ERROR: 500,
+  SERVICE_UNAVAILABLE: 503,
+};
+
 const response = ({ success = false, message, data = {} }) => ({
   success,
   message,
   data,
 });
+
+const dataRaw = ({ status, message, data = {} }) => ({
+  status, message, data,
+});
+
+const sendRaw = (res, { status, message, data = {} }) => {
+  let success = false;
+  if (status === statusCode.OK || status === statusCode.CREATED) {
+    success = true;
+  }
+  res.status(status).send(response({ success, message, data }));
+};
 
 /**
  * The request was successfully completed.
@@ -10,7 +35,7 @@ const response = ({ success = false, message, data = {} }) => ({
  * @param {*} {message, data}
  */
 const ok = (res, { message, data }) => {
-  res.status(200).send(response({ success: true, message, data }));
+  res.status(statusCode.OK).send(response({ success: true, message, data }));
 };
 
 /**
@@ -19,7 +44,7 @@ const ok = (res, { message, data }) => {
  * @param {*} {message, data}
  */
 const created = (res, { message, data }) => {
-  res.status(201).send(response({ success: true, message, data }));
+  res.status(statusCode.CREATED).send(response({ success: true, message, data }));
 };
 
 /**
@@ -28,7 +53,7 @@ const created = (res, { message, data }) => {
  * @param {*} {message, data}
  */
 const badRequest = (res, { message, data }) => {
-  res.status(400).send(response({ message, data }));
+  res.status(statusCode.BAD_REQUEST).send(response({ message, data }));
 };
 
 /**
@@ -37,7 +62,7 @@ const badRequest = (res, { message, data }) => {
  * @param {*} {message, data}
  */
 const unauthorized = (res, { message, data }) => {
-  res.status(401).send(response({ message, data }));
+  res.status(statusCode.UNAUTHORIZED).send(response({ message, data }));
 };
 
 /**
@@ -46,7 +71,7 @@ const unauthorized = (res, { message, data }) => {
  * @param {*} {message, data}
  */
 const forbidden = (res, { message, data }) => {
-  res.status(403).send(response({ message, data }));
+  res.status(statusCode.FORBIDDEN).send(response({ message, data }));
 };
 
 /**
@@ -55,7 +80,7 @@ const forbidden = (res, { message, data }) => {
  * @param {*} {message, data}
  */
 const notFound = (res, { message, data }) => {
-  res.status(404).send(response({ message, data }));
+  res.status(statusCode.NOT_FOUND).send(response({ message, data }));
 };
 
 /**
@@ -65,7 +90,7 @@ const notFound = (res, { message, data }) => {
  * @param {*} {message, data}
  */
 const methodNotAllowed = (res, { message, data }) => {
-  res.status(405).send(response({ message, data }));
+  res.status(statusCode.METHOD_NOT_ALLOWED).send(response({ message, data }));
 };
 
 /**
@@ -76,7 +101,7 @@ const methodNotAllowed = (res, { message, data }) => {
  * @param {*} {message, data}
  */
 const conflict = (res, { message, data }) => {
-  res.status(409).send(response({ message, data }));
+  res.status(statusCode.CONFLICT).send(response({ message, data }));
 };
 
 /**
@@ -85,7 +110,7 @@ const conflict = (res, { message, data }) => {
  * @param {*} {message, data}
  */
 const internalServerError = (res, { message, data }) => {
-  res.status(500).send(response({ message, data }));
+  res.status(statusCode.INTERNAL_SERVER_ERROR).send(response({ message, data }));
 };
 
 /**
@@ -94,10 +119,13 @@ const internalServerError = (res, { message, data }) => {
  * @param {*} {message, data}
  */
 const serviceUnavailable = (res, { message, data }) => {
-  res.status(503).send(response({ message, data }));
+  res.status(statusCode.SERVICE_UNAVAILABLE).send(response({ message, data }));
 };
 
-export default {
+export {
+  statusCode,
+  dataRaw,
+  sendRaw,
   ok,
   created,
   badRequest,

@@ -1,10 +1,11 @@
+import express from 'express';
 import exampleController from '../controllers/example_controller';
 
-const exampleRoute = (app) => {
-  app.route('/example').get(exampleController.get);
-  app.route('/example').post(exampleController.insert);
-  app.route('/example').put(exampleController.update);
-  app.route('/example').delete(exampleController.destroy);
-};
+const router = express.Router();
 
-export default exampleRoute;
+router.get('/example', exampleController.get);
+router.post('/example', exampleController.insert);
+router.put('/example', exampleController.update);
+router.delete('/example', exampleController.destroy);
+
+export default router;

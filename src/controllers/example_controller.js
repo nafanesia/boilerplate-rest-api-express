@@ -1,108 +1,36 @@
-import response from '../utils/response';
-import Example from '../models/example';
+import { sendRaw } from '../utils/response';
+import exampleService from '../services/example.service';
 
-// Find all example
-const get = (req, res, next) => {
+// Find all or one example
+const get = (req, res) => {
   const { firstName } = req.query;
-  try {
-    if (firstName) {
-      Example.findOne({
-        where: {
-          firstName,
-        },
-      }).then((name) => {
-        if (!name) {
-          response.badRequest(res, {
-            message: `Name with firstname ${firstName} not found!`,
-          });
-        }
-        response.ok(res, { message: 'Name found', data: name });
-      });
-    }
-
-    Example.findAll().then((list) => {
-      response.ok(res, { message: 'All list example', data: list });
-    });
-  } catch (err) {
-    response.internalServerError(res, {
-      message: err.message,
-      data: err,
-    });
-  }
+  exampleService.get({ firstName }).then((rawData) => {
+    sendRaw(res, rawData);
+  });
 };
 
 // Create a new example name
-const insert = (req, res, next) => {
+const insert = (req, res) => {
   const { firstName, lastName } = req.body;
-  try {
-    // Create a new user
-    Example.create({ firstName, lastName }).then((name) => {
-      response.created(res, {
-        message: 'Name inserted!',
-        data: { firstName: name.firstName, lastName: name.lastName },
-      });
-    });
-  } catch (err) {
-    response.internalServerError(res, {
-      message: err.message,
-      data: err,
-    });
-  }
+  exampleService.insert({ firstName, lastName }).then((rawData) => {
+    sendRaw(res, rawData);
+  });
 };
 
 // Change everyone where firstname to name (firstname, lastname)
-const update = (req, res, next) => {
+const update = (req, res) => {
   const { updateName, firstName } = req.body;
-  try {
-    Example.update(
-      { firstName: updateName.firstName, lastName: updateName.lastName },
-      { where: { firstName }, limit: 1 },
-    ).then((listSuccess) => {
-      if (listSuccess[0] === 0) {
-        response.badRequest(res, {
-          message: `Name with firstName ${firstName} not found!`,
-          data: { listSuccess },
-        });
-      }
-      response.ok(res, {
-        message: `Name with firstName ${firstName} was updated`,
-        data: { listSuccess },
-      });
-    });
-  } catch (err) {
-    response.internalServerError(res, {
-      message: err.message,
-      data: err,
-    });
-  }
+  exampleService.update({ updateName, firstName }).then((rawData) => {
+    sendRaw(res, rawData);
+  });
 };
 
 // Delete everyone named with firstname
-const destroy = (req, res, next) => {
+const destroy = (req, res) => {
   const { firstName } = req.body;
-  try {
-    Example.destroy({
-      where: {
-        firstName,
-      },
-    }).then((countDestroy) => {
-      if (countDestroy === 0) {
-        response.badRequest(res, {
-          message: `Name with ${firstName} not found!`,
-          data: { countDestroy },
-        });
-      }
-      response.ok(res, {
-        message: `Name with ${firstName} was deleted`,
-        data: { countDestroy },
-      });
-    });
-  } catch (err) {
-    response.internalServerError(res, {
-      message: err.message,
-      data: err,
-    });
-  }
+  exampleService.destroy({ firstName }).then((rawData) => {
+    sendRaw(res, rawData);
+  });
 };
 
 export default {

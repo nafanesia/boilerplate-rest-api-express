@@ -1,26 +1,24 @@
 import validator from 'validator';
-import { sendRaw, badRequest } from '../utils/response';
+import response from '../utils/response';
 import authService from '../services/auth.service';
 
-const login = (req, res) => {
+const login = async (req, res) => {
   const { email, password } = req.body;
   if (validator.isEmail(email)) {
-    authService.login({ email, password }).then((rawData) => {
-      sendRaw(res, rawData);
-    });
+    const result = await authService.login({ email, password });
+    response.send(res, result);
   } else {
-    badRequest(res, { message: 'Invalid email address format' });
+    response.badRequest(res, { message: 'Invalid email address format' });
   }
 };
 
-const register = (req, res) => {
+const register = async (req, res) => {
   const { email, password } = req.body;
   if (validator.isEmail(email)) {
-    authService.register({ email, password }).then((rawData) => {
-      sendRaw(res, rawData);
-    });
+    const result = await authService.register({ email, password });
+    response.send(res, result);
   } else {
-    badRequest(res, { message: 'Invalid email address format' });
+    response.badRequest(res, { message: 'Invalid email address format' });
   }
 };
 

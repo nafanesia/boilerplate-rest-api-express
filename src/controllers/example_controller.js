@@ -1,36 +1,32 @@
-import { sendRaw } from '../utils/response';
+import response from '../utils/response';
 import exampleService from '../services/example.service';
 
 // Find all or one example
-const get = (req, res) => {
+const get = async (req, res) => {
   const { firstName } = req.query;
-  exampleService.get({ firstName }).then((rawData) => {
-    sendRaw(res, rawData);
-  });
+  const result = await exampleService.get({ firstName });
+  response.send(res, result);
 };
 
 // Create a new example name
-const insert = (req, res) => {
+const insert = async (req, res) => {
   const { firstName, lastName } = req.body;
-  exampleService.insert({ firstName, lastName }).then((rawData) => {
-    sendRaw(res, rawData);
-  });
+  const result = await exampleService.insert({ firstName, lastName });
+  response.send(res, result);
 };
 
 // Change everyone where firstname to name (firstname, lastname)
-const update = (req, res) => {
+const update = async (req, res) => {
   const { updateName, firstName } = req.body;
-  exampleService.update({ updateName, firstName }).then((rawData) => {
-    sendRaw(res, rawData);
-  });
+  const result = await exampleService.update({ updateName, firstName });
+  response.send(res, result);
 };
 
 // Delete everyone named with firstname
-const destroy = (req, res) => {
+const destroy = async (req, res) => {
   const { firstName } = req.body;
-  exampleService.destroy({ firstName }).then((rawData) => {
-    sendRaw(res, rawData);
-  });
+  const result = await exampleService.destroy({ firstName });
+  response.send(res, result);
 };
 
 export default {

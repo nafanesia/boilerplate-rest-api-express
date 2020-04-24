@@ -17,13 +17,13 @@ const response = ({ success = false, message, data = {} }) => ({
   data,
 });
 
-const dataRaw = ({ status, message, data = {} }) => ({
+const result = ({ status, message, data = {} }) => ({
   status,
   message,
   data,
 });
 
-const sendRaw = (res, { status, message, data = {} }) => {
+const send = (res, { status, message, data = {} }) => {
   let success = false;
   if (status === statusCode.OK || status === statusCode.CREATED) {
     success = true;
@@ -124,10 +124,10 @@ const serviceUnavailable = (res, { message, data }) => {
   res.status(statusCode.SERVICE_UNAVAILABLE).send(response({ message, data }));
 };
 
-export {
+export default {
   statusCode,
-  dataRaw,
-  sendRaw,
+  result,
+  send,
   ok,
   created,
   badRequest,

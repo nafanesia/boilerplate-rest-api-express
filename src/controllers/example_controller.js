@@ -34,5 +34,8 @@ const destroy = (req, res) => {
 };
 
 export default {
-  get, insert, update, destroy,
+  get,
+  insert,
+  update,
+  destroy,
 };

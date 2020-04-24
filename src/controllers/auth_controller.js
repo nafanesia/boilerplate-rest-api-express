@@ -5,10 +5,9 @@ import authService from '../services/auth.service';
 const login = (req, res) => {
   const { email, password } = req.body;
   if (validator.isEmail(email)) {
-    authService.login({ email, password })
-      .then((rawData) => {
-        sendRaw(res, rawData);
-      });
+    authService.login({ email, password }).then((rawData) => {
+      sendRaw(res, rawData);
+    });
   } else {
     badRequest(res, { message: 'Invalid email address format' });
   }
@@ -17,10 +16,9 @@ const login = (req, res) => {
 const register = (req, res) => {
   const { email, password } = req.body;
   if (validator.isEmail(email)) {
-    authService.register({ email, password })
-      .then((rawData) => {
-        sendRaw(res, rawData);
-      });
+    authService.register({ email, password }).then((rawData) => {
+      sendRaw(res, rawData);
+    });
   } else {
     badRequest(res, { message: 'Invalid email address format' });
   }

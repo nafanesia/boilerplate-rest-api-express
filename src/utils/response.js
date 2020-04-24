@@ -18,7 +18,9 @@ const response = ({ success = false, message, data = {} }) => ({
 });
 
 const dataRaw = ({ status, message, data = {} }) => ({
-  status, message, data,
+  status,
+  message,
+  data,
 });
 
 const sendRaw = (res, { status, message, data = {} }) => {

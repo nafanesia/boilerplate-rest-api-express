@@ -3,9 +3,8 @@
     "browser": true,
     "es6": true
   },
-  "extends": [
-    "airbnb-base"
-  ],
+  "extends": ["airbnb-base"],
+  "plugins": ["prettier"],
   "globals": {
     "Atomics": "readonly",
     "SharedArrayBuffer": "readonly"
@@ -16,8 +15,8 @@
   },
   "rules": {
     "no-console": "off",
-    "no-unused-vars": [
-      "warn"
-    ]
+    "no-unused-vars": ["warn"],
+    "implicit-arrow-linebreak" : "off",
+    "prettier/prettier": ["error"]
   }
 }

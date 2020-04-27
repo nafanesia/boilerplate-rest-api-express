@@ -31,22 +31,3 @@ authorization: Bearer [token]
   "firstName" : "Nafanesia",
   "lastName" : "Indonesia"
 }
-
-###
-
-PUT  http://localhost:3000/example
-content-type: application/json
-authorization: Bearer [token]
-{
-  "updateName" : {
-    "firstName" : "Nafnes",
-    "lastName" : "Nafanesia Indonesia"
-  }
-  "firstName" : "Nafanesia",
-}
-
-###
-
-DELETE   http://localhost:3000/example
-content-type: application/json
-authorization: Bearer [token]

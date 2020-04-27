@@ -1,0 +1,52 @@
+POST http://localhost:3000/register
+content-type: application/json
+
+{
+    "email": "youremail@nafnes.com",
+    "password": "123456"
+}
+
+### 
+
+POST http://localhost:3000/login
+content-type: application/json
+
+{
+    "email": "youremail@nafnes.com",
+    "password": "123456"
+}
+
+###
+
+GET  http://localhost:3000/example
+content-type: application/json
+authorization: Bearer [token]
+
+###
+
+POST  http://localhost:3000/example
+content-type: application/json
+authorization: Bearer [token]
+{
+  "firstName" : "Nafanesia",
+  "lastName" : "Indonesia"
+}
+
+###
+
+PUT  http://localhost:3000/example
+content-type: application/json
+authorization: Bearer [token]
+{
+  "updateName" : {
+    "firstName" : "Nafnes",
+    "lastName" : "Nafanesia Indonesia"
+  }
+  "firstName" : "Nafanesia",
+}
+
+###
+
+DELETE   http://localhost:3000/example
+content-type: application/json
+authorization: Bearer [token]

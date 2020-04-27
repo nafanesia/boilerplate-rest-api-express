@@ -12,14 +12,12 @@ import helmet from 'helmet';
  */
 import config from './src/config';
 import routes from './src/routes';
-import dbService from './src/services/database.service';
 
 /**
  * express application
  */
 const app = express();
 const server = Server(app);
-const db = dbService({ drop: false });
 
 // allow cross origin request
 app.use(cors());
@@ -41,5 +39,4 @@ routes(app);
 
 server.listen(config.port, () => {
   console.log(`Server running in PORT ${config.port}!`);
-  return db;
 });

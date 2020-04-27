@@ -1,4 +1,4 @@
-import User from '../models/user';
+import { User } from '../sequelize/models';
 import bcryptService from '../utils/bcrypt';
 import response from '../utils/response';
 import jwtService from './jwt.service';

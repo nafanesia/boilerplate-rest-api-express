@@ -1,4 +1,4 @@
-import Example from '../models/example';
+import { Example } from '../sequelize/models';
 import response from '../utils/response';
 
 const get = async ({ firstName }) => {
